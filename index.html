@@ -5,7 +5,6 @@
 
 <title>土下座させろ！</title>
 
-<!-- スマホのズーム防止 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 <style>
@@ -55,13 +54,14 @@ color:red;
 let level = 1
 let taps = 0
 let cleared = false
+let canRestart = false
 
 const img = document.getElementById("img")
 const levelText = document.getElementById("level")
 const message = document.getElementById("message")
 const button = document.getElementById("tap")
 
-const tapsNeeded = 4
+const tapsNeeded = 6
 
 function update(){
 
@@ -71,7 +71,11 @@ levelText.textContent = level
 if(level === 5 && !cleared){
 
 cleared = true
-message.textContent = "土下座成功！"
+message.textContent = "土下座成功！もう一回タップでリスタート"
+
+setTimeout(()=>{
+canRestart = true
+},1200)
 
 }
 
@@ -81,9 +85,12 @@ function tap(){
 
 if(cleared){
 
+if(!canRestart) return
+
 level = 1
 taps = 0
 cleared = false
+canRestart = false
 message.textContent = ""
 update()
 return
