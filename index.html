@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>土下座させろ！</title>
+
+<!-- スマホのズーム防止 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<style>
+
+body{
+text-align:center;
+font-family:sans-serif;
+touch-action:manipulation;
+}
+
+img{
+width:260px;
+margin-top:20px;
+}
+
+button{
+font-size:30px;
+padding:20px 40px;
+margin-top:20px;
+touch-action:manipulation;
+}
+
+#message{
+font-size:22px;
+margin-top:10px;
+color:red;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>土下座させろ！</h1>
+
+<img id="img" src="img1.jpeg">
+
+<p>レベル: <span id="level">1</span></p>
+
+<div id="message"></div>
+
+<button id="tap">連打！</button>
+
+<script>
+
+let level = 1
+let taps = 0
+let cleared = false
+
+const img = document.getElementById("img")
+const levelText = document.getElementById("level")
+const message = document.getElementById("message")
+const button = document.getElementById("tap")
+
+const tapsNeeded = 6
+
+function update(){
+
+img.src = "img" + level + ".jpeg"
+levelText.textContent = level
+
+if(level === 5 && !cleared){
+
+cleared = true
+message.textContent = "土下座成功！もう一回タップでリスタート"
+
+}
+
+}
+
+function tap(){
+
+if(cleared){
+
+level = 1
+taps = 0
+cleared = false
+message.textContent = ""
+update()
+return
+
+}
+
+taps++
+
+if(taps >= tapsNeeded){
+
+if(level < 5){
+level++
+}
+
+taps = 0
+update()
+
+}
+
+}
+
+button.addEventListener("click",tap)
+button.addEventListener("touchstart",tap)
+
+setInterval(()=>{
+
+if(cleared) return
+
+if(level > 1){
+
+level--
+taps = 0
+update()
+
+}
+
+},600)
+
+</script>
+
+</body>
+</html>
