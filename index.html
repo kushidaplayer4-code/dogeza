@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>連打ゲーム</title>
+<style>
+body{
+  text-align:center;
+  font-family:sans-serif;
+  background:#f0f0f0;
+}
+
+#game{
+  margin-top:40px;
+}
+
+img{
+  width:250px;
+  height:auto;
+}
+
+button{
+  font-size:30px;
+  padding:20px 40px;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>連打して画像を5まで進めろ！</h1>
+
+<div id="game">
+<img id="img" src="img1.jpeg">
+<br>
+<button id="tap">連打！</button>
+<p>現在レベル: <span id="level">1</span></p>
+</div>
+
+<script>
+
+let level = 1
+const img = document.getElementById("img")
+const levelText = document.getElementById("level")
+
+function update(){
+  img.src = "img" + level + ".jpeg"
+  levelText.textContent = level
+}
+
+// タップで進む
+document.getElementById("tap").addEventListener("click", () => {
+  if(level < 5){
+    level++
+    update()
+  }
+
+  if(level === 5){
+    alert("クリア！")
+  }
+})
+
+// ゲーム側の抵抗（少しずつ戻る）
+setInterval(() => {
+  if(level > 1){
+    level--
+    update()
+  }
+}, 1500)
+
+</script>
+
+</body>
+</html>
